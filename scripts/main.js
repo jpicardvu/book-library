@@ -1,151 +1,72 @@
-let num1 = '';
-let num2 = '';
-let operator;
-let finalized;
+let myLibrary = ['test1','test2','test3'];
+const newAuthor = document.querySelector('#author');
+const newTitle = document.querySelector('#title');
+const newPages = document.querySelector('#pages');
+const newRead = document.querySelector('#read');
+const submitButton = document.querySelector('.btn');
+const cancelButton = document.querySelector('.btn-cancel')
+const bookUL = document.querySelector('ul');
 
-const screenContent = document.querySelector('#screen-content');
-const buttons = document.querySelectorAll('button');
+const bookInfo = document.createElement('input');
+submitButton.addEventListener("submit", addBookToLibrary())
 
-function operate(operator, num1, num2) {
-  num1 = parseInt(num1);
-  num2 = parseInt(num2);
-  switch(operator) {       
-    case '+':
-      return add(num1, num2);
-    case '-':
-      return subtract(num1, num2);
-    case '*':
-      return multiply(num1, num2);
-    case '/':
-      return divide(num1, num2);
-    case '^':
-      return exponent(num1, num2);
-    case '%':
-      return percent(num1);
-    case '!':
-      return factorial(num1);
-    case '=':
-      return num1;
-    case '+/-':
-      return direction(num1);
-    }
-}  
-  
-add = (num1, num2) => num1 + num2;
-subtract = (num1, num2) => num1 - num2;
-multiply = (num1, num2) => num1 * num2;
-divide = (num1, num2) => num1 / num2;
-exponent = (num1, num2) => num1 ** num2;
-percent = (num1) => (num1 * 0.01);
-direction = (num1) => (num1 * -1);
+function Book(author, title, pages, read) {
+  this.author = author;
+  this.title = title;
+  this.pages = pages;
+  this.read = read;
 
-function factorial(num1) {
-  if (num1 === 0) {
-    return 1;
-  }
-  let runningTotal = 1;  
-  for (i = num1; i > 0; i--) {
-    runningTotal *= i;
-  }
-  return runningTotal;
+  // add prototype function remove entry (pop?) from lis
+  // and then remove from html/shift up
+
+  // add prototype function to change read status
+  // and then change on html
 }
 
-// addEventlistener for button 'click'
-buttons.forEach( (button) => {  
-  button.addEventListener('click', () => {
-    const choice = button.textContent;
-    
-    if (choice === 'AC') {
-      screenContent.textContent = '';
-      num1 = '';
-      num2 = '';
-      operator = undefined;
-      finalized = undefined;
-    }
-    else if (choice === '⌫') {
-      if (num1) {
-        num1 = num1.toString().slice(0, -1);
-        screenContent.textContent = num1;
-      }
-      else {
-        num2 = num2.toString().slice(0, -1);
-        screenContent.textContent = num2;
-      }
-    }
-    else if ( ['%','!','+/-'].includes(choice) && num1 ) {
-      num1 = operate(choice, num1, num2);
-      screenContent.textContent = num1;
-    }
-    else if ( finalized === true && isNaN(choice) ) {
-      num1 = operate(operator, num1, num2);
-      num2 = '';
-      finalized = false;
-      screenContent.textContent = num1;
-      operator = choice;
-    }
-    else if ( isNaN(choice) && num1 ) {
-        operator = choice;
-    }
-    else if (!operator) {
-      num1 = '' + num1 + choice;
-      screenContent.textContent = num1;
-    }
-    else if (operator) {
-      num2 = '' + num2 + choice;
-      screenContent.textContent = num2;
-    }
+function addBookToLibrary() {
+  const newBook = new Book(newAuthor.value, newTitle.value, newPages.value, newRead.value);
+  myLibrary.push(newBook);
+  
+  const bookLI = document.createElement('li');
+  bookLI.textContent = newBook;
+  bookUL.appendChild(bookLI);
+  
+  newAuthor.value = '';
+  newTitle.value = '';
+  newPages.value = '';
+  newRead.value = '';
+}
 
-    if (operator && num1 && num2) {
-      finalized = true;
-    } 
-  })
-})
 
-// duplicate addEventListener of above except for button 'keydown'
-  document.addEventListener('keydown', (e) => {
-    const choice = e.key;
-    
-    if (choice === 'AC') {
-      screenContent.textContent = '';
-      num1 = '';
-      num2 = '';
-      operator = undefined;
-      finalized = undefined;
-    }
-    else if (choice === '⌫') {
-      if (num1) {
-        num1 = num1.toString().slice(0, -1);
-        screenContent.textContent = num1;
-      }
-      else {
-        num2 = num2.toString().slice(0, -1);
-        screenContent.textContent = num2;
-      }
-    }
-    else if ( ['%','!','+/-'].includes(choice) && num1 ) {
-      num1 = operate(choice, num1, num2);
-      screenContent.textContent = num1;
-    }
-    else if ( finalized === true && isNaN(choice) ) {
-      num1 = operate(operator, num1, num2);
-      num2 = '';
-      finalized = false;
-      screenContent.textContent = num1;
-      operator = choice;
-    }
-    else if ( isNaN(choice) && num1 ) {
-        operator = choice;
-    }
-    else if (!operator) {
-      num1 = '' + num1 + choice;
-      screenContent.textContent = num1;
-    }
-    else if (operator) {
-      num2 = '' + num2 + choice;
-      screenContent.textContent = num2;
-    }
 
-    if (operator && num1 && num2) {
-      finalized = true;
-    } 
-  })
+
+
+
+
+
+function addL() {
+  for (let book in myLibrary) {
+    const bookLI = document.createElement('li');
+    const bookInfo = document.createElement('input');
+    bookInfo.type = 'text'
+    bookInfo.placeholder = 'Enter book name'
+    bookLI.append(bookInfo)
+    bookLI.textContent = myLibrary[book];
+    bookUL.appendChild(bookLI);
+  }
+}
+
+
+
+
+function add_down() {
+
+  var node = document.createElement("LI");
+  var element = document.createElement("input");
+  element.type = 'text';
+  element.placeholder = "Enter Name";
+  node.append(element);
+
+  document.getElementById("start").appendChild(node);
+
+}

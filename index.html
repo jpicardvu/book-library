@@ -7,8 +7,34 @@
   </head>
   <body>
     <header>PAGE HEADER</header>
+    
+    <div class="form-popup" id="myForm">
+      <form action="" class="form-container">
+        <h1>Library</h1>
+        
+        <!-- CONVERT FORM BELOW TO POPUP-->
 
-    <div></div>
+        <label for="author"><b>Author</b></label>
+        <input type="text" placeholder="Enter author's name" id="author" name="author" required>
+
+        <label for="title"><b>Title</b></label>
+        <input type="text" placeholder="Enter book title" id="title" name="title" required>
+        
+        <label for="pages"><b>Page Count</b></label>
+        <input type="text" placeholder="Enter # of pages" id="pages" name="pages" required>
+        
+        <label for="read"><b>Read/Unread</b></label>
+        <select id="read" name="read" required>
+          <option value="read">Read</option>
+          <option value="unread">Unread</option>
+        </select>
+
+        <button type="submit" class="btn">Submit</button>
+        <button type="submit" class="btn-cancel">Close</button>
+      </form>
+    </div>
+    
+    <ul id='my-library'>Library</ul>
 
     <script src="scripts/main.js"></script>
   </body>
