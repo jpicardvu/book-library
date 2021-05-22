@@ -4,17 +4,19 @@ const newTitle = document.querySelector('#title');
 const newPages = document.querySelector('#pages');
 const newRead = document.querySelector('#read');
 const submitButton = document.querySelector('.btn');
-const cancelButton = document.querySelector('.btn-cancel')
+const cancelButton = document.querySelector('.btn-cancel');
 const bookUL = document.querySelector('ul');
 
 const bookInfo = document.createElement('input');
-submitButton.addEventListener("submit", addBookToLibrary())
+submitButton.addEventListener("click", addBookToLibrary)
 
 function Book(author, title, pages, read) {
   this.author = author;
   this.title = title;
   this.pages = pages;
   this.read = read;
+  //this.readUnread() = if checked then this.read = 'read' else 'unread'
+                      // bookLI.textContent = Object.values(newBook)
 
   // add prototype function remove entry (pop?) from lis
   // and then remove from html/shift up
@@ -24,12 +26,41 @@ function Book(author, title, pages, read) {
 }
 
 function addBookToLibrary() {
+  if (newAuthor.value === '' || 
+      newTitle.value === '' || 
+      newPages.value === '' || 
+      newRead.value === '') {
+        return;
+      }
+  
   const newBook = new Book(newAuthor.value, newTitle.value, newPages.value, newRead.value);
   myLibrary.push(newBook);
   
   const bookLI = document.createElement('li');
-  bookLI.textContent = newBook;
+  bookLI.textContent = Object.values(newBook);
   bookUL.appendChild(bookLI);
+
+  const readLabel = document.createElement('label');
+  readLabel.classList.add('read-label');
+  bookLI.appendChild(readLabel);
+  
+  const readInput = document.createElement('input');
+  readInput.classList.add('read-input')
+  readInput.type = 'checkbox';
+  //if (4th item, read/unread = read Then checked = true else false)
+    readInput.checked = true;
+  // readInput.addEventListener("on check/uncheck click?", this.read/unread function)
+  
+  readLabel.appendChild(readInput);
+  
+  const readSpan = document.createElement('span');
+  readSpan.classList.add('read-span')
+  readLabel.appendChild(readSpan)
+
+  const deleteBookLI = document.createElement('button');
+  deleteBookLI.classList.add('delete-book')
+  deleteBookLI.textContent = 'X';
+  bookLI.appendChild(deleteBookLI);
   
   newAuthor.value = '';
   newTitle.value = '';
@@ -44,6 +75,9 @@ function addBookToLibrary() {
 
 
 
+/*
+
+
 function addL() {
   for (let book in myLibrary) {
     const bookLI = document.createElement('li');
@@ -56,9 +90,6 @@ function addL() {
   }
 }
 
-
-
-
 function add_down() {
 
   var node = document.createElement("LI");
@@ -70,3 +101,5 @@ function add_down() {
   document.getElementById("start").appendChild(node);
 
 }
+
+*/
