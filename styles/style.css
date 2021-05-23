@@ -15,13 +15,51 @@ body {
   transform: translateY(-50%);
   transform: translateX(-50%);
   margin: auto;
-  text-align: center;
   width: 600px;
 }
+
+h1 {
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 350px;
+  outline: 2px solid rgb(87, 109, 138);
+  margin: auto;
+  padding: 0px 10px 10px 10px;
+}
+
+input {
+  flex-basis: 100%;
+}
+
+select, button {
+  margin-left: 10px;
+  flex-basis: auto;
+  flex-grow: 2;
+}
+
+label, select, button {
+  margin-top: 8px;
+}
+
+.form-popup > label > div {
+  box-sizing: border-box;
+  border: 0.01px solid rgb(160,160,255); 
+  flex-grow: 1;
+}
+
 
 li {
   margin-bottom: 10px;
   list-style-type: none;
+}
+
+.book-content {
+  white-space: nowrap;
+  display: inline-block
 }
 
 .read-label, .delete-book {
@@ -30,13 +68,13 @@ li {
   top: -2px;
 }
 
-
 /* The switch - the box around the slider */
 .read-label {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 26px;
+  white-space: nowrap;
 }
 
 /* Hide default HTML checkbox */
@@ -47,7 +85,7 @@ li {
 }
 
 /* The slider */
-.read-span {
+.read-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -59,7 +97,7 @@ li {
   transition: .4s;
 }
 
-.read-span:before {
+.read-slider:before {
   position: absolute;
   content: "";
   height: 18px;
@@ -71,15 +109,15 @@ li {
   transition: .4s;
 }
 
-input:checked + .read-span {
+input:checked + .read-slider {
   background-color: #2196F3;
 }
 
-input:focus + .read-span {
+input:focus + .read-slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .read-span:before {
+input:checked + .read-slider:before {
   -webkit-transform: translateX(21px);
   -ms-transform: translateX(21px);
   transform: translateX(21px);

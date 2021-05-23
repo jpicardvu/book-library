@@ -1,4 +1,4 @@
-let myLibrary = ['test1','test2','test3'];
+let bookshelf = [];
 const newAuthor = document.querySelector('#author');
 const newTitle = document.querySelector('#title');
 const newPages = document.querySelector('#pages');
@@ -25,6 +25,14 @@ function Book(author, title, pages, read) {
   // and then change on html
 }
 
+Book.prototype.readBook = function() {
+  this.read = 'read';
+}
+
+Book.prototype.unreadBook = function() {
+  this.read = 'unread';
+}
+
 function addBookToLibrary() {
   if (newAuthor.value === '' || 
       newTitle.value === '' || 
@@ -34,10 +42,13 @@ function addBookToLibrary() {
       }
   
   const newBook = new Book(newAuthor.value, newTitle.value, newPages.value, newRead.value);
-  myLibrary.push(newBook);
+  bookshelf.push(newBook);
   
   const bookLI = document.createElement('li');
-  bookLI.textContent = Object.values(newBook);
+  const bookContent = document.createElement('div');
+  bookContent.classList.add('book-content');
+  bookContent.textContent = Object.values(newBook);
+  bookLI.appendChild(bookContent);
   bookUL.appendChild(bookLI);
 
   const readLabel = document.createElement('label');
@@ -45,17 +56,28 @@ function addBookToLibrary() {
   bookLI.appendChild(readLabel);
   
   const readInput = document.createElement('input');
-  readInput.classList.add('read-input')
+  readInput.classList.add('read-input') 
   readInput.type = 'checkbox';
-  //if (4th item, read/unread = read Then checked = true else false)
+  if (newBook.read === 'read') {
     readInput.checked = true;
-  // readInput.addEventListener("on check/uncheck click?", this.read/unread function)
-  
+  }
+  else {
+    readInput.checked = false;
+  }
+  readInput.addEventListener('change',function() {
+    if (this.checked) {
+      newBook.readBook()
+      bookContent.textContent = Object.values(newBook);
+    } else {
+      newBook.unreadBook();
+      bookContent.textContent = Object.values(newBook);
+    }
+  });
   readLabel.appendChild(readInput);
   
-  const readSpan = document.createElement('span');
-  readSpan.classList.add('read-span')
-  readLabel.appendChild(readSpan)
+  const readSlider = document.createElement('span');
+  readSlider.classList.add('read-slider')
+  readLabel.appendChild(readSlider)
 
   const deleteBookLI = document.createElement('button');
   deleteBookLI.classList.add('delete-book')
@@ -67,39 +89,3 @@ function addBookToLibrary() {
   newPages.value = '';
   newRead.value = '';
 }
-
-
-
-
-
-
-
-
-/*
-
-
-function addL() {
-  for (let book in myLibrary) {
-    const bookLI = document.createElement('li');
-    const bookInfo = document.createElement('input');
-    bookInfo.type = 'text'
-    bookInfo.placeholder = 'Enter book name'
-    bookLI.append(bookInfo)
-    bookLI.textContent = myLibrary[book];
-    bookUL.appendChild(bookLI);
-  }
-}
-
-function add_down() {
-
-  var node = document.createElement("LI");
-  var element = document.createElement("input");
-  element.type = 'text';
-  element.placeholder = "Enter Name";
-  node.append(element);
-
-  document.getElementById("start").appendChild(node);
-
-}
-
-*/
