@@ -1,28 +1,22 @@
-let bookshelf = [];
 const newAuthor = document.querySelector('#author');
 const newTitle = document.querySelector('#title');
 const newPages = document.querySelector('#pages');
 const newRead = document.querySelector('#read');
 const submitButton = document.querySelector('.btn');
-const cancelButton = document.querySelector('.btn-cancel');
+const clearButton = document.querySelector('.btn-clear');
 const bookUL = document.querySelector('ul');
-
 const bookInfo = document.createElement('input');
-submitButton.addEventListener("click", addBookToLibrary)
+
+submitButton.addEventListener('click', addBookToLibrary)
+clearButton.addEventListener('click', function() {
+  document.querySelector('.form-container').reset();
+})
 
 function Book(author, title, pages, read) {
   this.author = author;
   this.title = title;
   this.pages = pages;
   this.read = read;
-  //this.readUnread() = if checked then this.read = 'read' else 'unread'
-                      // bookLI.textContent = Object.values(newBook)
-
-  // add prototype function remove entry (pop?) from lis
-  // and then remove from html/shift up
-
-  // add prototype function to change read status
-  // and then change on html
 }
 
 Book.prototype.readBook = function() {
@@ -42,7 +36,8 @@ function addBookToLibrary() {
       }
   
   const newBook = new Book(newAuthor.value, newTitle.value, newPages.value, newRead.value);
-  bookshelf.push(newBook);
+  //let bookshelf = [];
+  //bookshelf.push(newBook);
   
   const bookLI = document.createElement('li');
   const bookContent = document.createElement('div');
@@ -72,17 +67,20 @@ function addBookToLibrary() {
       newBook.unreadBook();
       bookContent.textContent = Object.values(newBook);
     }
-  });
+  })
   readLabel.appendChild(readInput);
   
   const readSlider = document.createElement('span');
   readSlider.classList.add('read-slider')
   readLabel.appendChild(readSlider)
 
-  const deleteBookLI = document.createElement('button');
-  deleteBookLI.classList.add('delete-book')
-  deleteBookLI.textContent = 'X';
-  bookLI.appendChild(deleteBookLI);
+  const xButton = document.createElement('button');
+  xButton.classList.add('delete-book')
+  xButton.textContent = 'X';
+  xButton.addEventListener('click', function() {
+    bookLI.remove();
+  })
+  bookLI.appendChild(xButton);
   
   newAuthor.value = '';
   newTitle.value = '';
